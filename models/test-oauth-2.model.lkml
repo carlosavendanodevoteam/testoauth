@@ -7,12 +7,12 @@ include: "/views/**/*.view.lkml"
 # Datagroups define a caching policy for an Explore. To learn more,
 # use the Quick Help panel on the right to see documentation.
 
-datagroup: test-oauth-2_default_datagroup {
+datagroup: default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
-persist_with: test-oauth-2_default_datagroup
+persist_with: default_datagroup
 
 # Explores allow you to join together different views (database tables) based on the
 # relationships between fields. By joining a view into an Explore, you make those
@@ -23,13 +23,13 @@ persist_with: test-oauth-2_default_datagroup
 
 explore: inventory_items {
   join: products {
-    type: left_outer 
+    type: left_outer
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
 
   join: distribution_centers {
-    type: left_outer 
+    type: left_outer
     sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
@@ -43,31 +43,31 @@ explore: distribution_centers {}
 
 explore: order_items {
   join: users {
-    type: left_outer 
+    type: left_outer
     sql_on: ${order_items.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
 
   join: inventory_items {
-    type: left_outer 
+    type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     relationship: many_to_one
   }
 
   join: products {
-    type: left_outer 
+    type: left_outer
     sql_on: ${order_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
 
   join: orders {
-    type: left_outer 
+    type: left_outer
     sql_on: ${order_items.order_id} = ${orders.order_id} ;;
     relationship: many_to_one
   }
 
   join: distribution_centers {
-    type: left_outer 
+    type: left_outer
     sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
@@ -75,7 +75,7 @@ explore: order_items {
 
 explore: orders {
   join: users {
-    type: left_outer 
+    type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
@@ -85,7 +85,7 @@ explore: connection_reg_r3 {}
 
 explore: products {
   join: distribution_centers {
-    type: left_outer 
+    type: left_outer
     sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
     relationship: many_to_one
   }
@@ -93,7 +93,7 @@ explore: products {
 
 explore: events {
   join: users {
-    type: left_outer 
+    type: left_outer
     sql_on: ${events.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
@@ -102,4 +102,3 @@ explore: events {
 explore: users {}
 
 explore: viewbq {}
-
